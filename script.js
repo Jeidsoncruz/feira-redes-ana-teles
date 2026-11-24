@@ -501,3 +501,50 @@ function sendToGoogleSheets(premioStatus) {
       syncEl.style.color = "#ef4444";
     });
 }
+
+async function loadRanking() {
+  const listEl = document.getElementById("ranking-list");
+  if (!listEl) return;
+
+  if (GOOGLE_SCRIPT_URL.includes("SEU_ID_AQUI")) {
+    listEl.innerHTML = "<li>Configure a URL do Apps Script para exibir o ranking.</li>";
+    return;
+  }
+
+  listEl.innerHTML = "<li>⏳ Buscando pontuações...</li>";
+
+  try {
+    const response = await fetch(GOOGLE_SCRIPT_URL);
+    const data = await response.json();
+
+    if (!data.ranking || data.ranking.length === 0) {
+      listEl.innerHTML = "<li>Nenhuma pontuação registrada ainda. Seja o primeiro!</li>";
+      return;
+    }
+
+    const medals = ["🥇", "🥈", "🥉", "4º", "5º"];
+    listEl.innerHTML = "";
+
+    data.ranking.forEach((playerRow, idx) => {
+      const li = document.createElement("li");
+      li.className = "ranking-item";
+      li.innerHTML = `
+        <span>${medals[idx] || (idx + 1) + "º"} <strong>${escapeHtml(playerRow.nome)}</strong> <small style="color:#94a3b8">(${escapeHtml(playerRow.perfil)})</small></span>
+        <span class="ranking-score">${playerRow.pontuacao}/${playerRow.total}</span>
+      `;
+      listEl.appendChild(li);
+    });
+  } catch (err) {
+    listEl.innerHTML = "<li>⚠️ Não foi possível carregar o ranking agora.</li>";
+  }
+}
+
+// Evita injeção de HTML caso alguém digite tags no nome/apelido
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// Carrega o ranking assim que a página abre
+window.addEventListener("DOMContentLoaded", loadRanking);
