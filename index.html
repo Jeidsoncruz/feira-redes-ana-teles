@@ -29,6 +29,17 @@
         <button type="submit" class="btn-primary">Iniciar Missão 🚀</button>
       </form>
     </section>
+    
+    <!-- RANKING AO VIVO (TOP 5) -->
+<div class="ranking-box">
+  <div class="ranking-header">
+    <h3>🏆 Top 5 Ranking da Feira</h3>
+    <button type="button" class="btn-refresh" onclick="loadRanking()">Atualizar ↻</button>
+  </div>
+  <ol id="ranking-list" class="ranking-list">
+    <li>Carregando ranking...</li>
+  </ol>
+</div>
 
     <!-- TELA 2: HUB PRINCIPAL -->
     <section id="screen-hub" class="card hidden">
