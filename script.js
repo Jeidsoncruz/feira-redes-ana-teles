@@ -16,6 +16,7 @@ const mediaData = {
     {
       name: "Cabo Coaxial (RG-59 / RG-6)",
       icon: "📺",
+      image: "assets/img/cabo-coaxial.jpg",
       type: "Sinal Elétrico (Cobre + Malha)",
       speedText: "10 Mbps a 1 Gbps (DOCSIS)",
       speedMbps: 100,
@@ -28,6 +29,7 @@ const mediaData = {
     {
       name: "Par Trançado CAT4",
       icon: "☎️",
+      image: "assets/img/par-trancado-cat4.jpg",
       type: "Sinal Elétrico (4 Pares de Cobre)",
       speedText: "Até 16 Mbps",
       speedMbps: 16,
@@ -40,6 +42,7 @@ const mediaData = {
     {
       name: "Par Trançado CAT5e",
       icon: "🔌",
+      image: "assets/img/par-trancado-cat5e.jpg",
       type: "Sinal Elétrico (Cobre Trançado)",
       speedText: "Até 1 Gbps (1.000 Mbps)",
       speedMbps: 1000,
@@ -52,6 +55,7 @@ const mediaData = {
     {
       name: "Par Trançado CAT6 / CAT6a",
       icon: "🔗",
+      image: "assets/img/par-trancado-cat6.jpg",
       type: "Sinal Elétrico (Com separador interno)",
       speedText: "1 Gbps até 10 Gbps (CAT6a)",
       speedMbps: 10000,
@@ -64,6 +68,7 @@ const mediaData = {
     {
       name: "Fibra Óptica (Monomodo / Multimodo)",
       icon: "💡",
+      image: "assets/img/fibra-optica.jpg",
       type: "Pulsos de Luz (Laser / LED)",
       speedText: "10 Gbps a +100 Gbps",
       speedMbps: 40000,
@@ -78,6 +83,7 @@ const mediaData = {
     {
       name: "Infravermelho (IrDA)",
       icon: "🔦",
+      image: "assets/img/infravermelho-irda.jpg",
       type: "Ondas de Luz Invisível",
       speedText: "115 kbps a 4 Mbps",
       speedMbps: 4,
@@ -90,6 +96,7 @@ const mediaData = {
     {
       name: "Bluetooth (5.0 / 5.3)",
       icon: "🎧",
+      image: "assets/img/bluetooth.jpg",
       type: "Ondas de Rádio (2.4 GHz - WPAN)",
       speedText: "2 Mbps a 50 Mbps",
       speedMbps: 24,
@@ -102,6 +109,7 @@ const mediaData = {
     {
       name: "Wi-Fi 5 / Wi-Fi 6 (IEEE 802.11ac/ax)",
       icon: "📶",
+      image: "assets/img/wifi.jpg",
       type: "Ondas de Rádio (2.4 GHz e 5 GHz)",
       speedText: "600 Mbps a 9.6 Gbps (teórico)",
       speedMbps: 1200,
@@ -114,6 +122,7 @@ const mediaData = {
     {
       name: "Rádio Enlace / Micro-ondas Terrestre",
       icon: "📡",
+      image: "assets/img/radio-enlace.jpg",
       type: "Ondas Eletromagnéticas Direcionais",
       speedText: "100 Mbps a 10 Gbps",
       speedMbps: 2000,
@@ -126,6 +135,7 @@ const mediaData = {
     {
       name: "Comunicação via Satélite (GEO / LEO)",
       icon: "🛰️",
+      image: "assets/img/satelite.jpg",
       type: "Micro-ondas Espaciais",
       speedText: "50 Mbps a 500 Mbps",
       speedMbps: 250,
@@ -440,11 +450,35 @@ function renderMediaTabs() {
   });
 }
 
+function setFallbackIcon(imgEl, iconEl, fallbackEmoji) {
+  imgEl.classList.add("hidden");
+  imgEl.removeAttribute("src");
+  iconEl.textContent = fallbackEmoji;
+  iconEl.classList.remove("hidden");
+}
+
 function loadMediaDetails(index) {
   currentMediaIndex = index;
   const item = mediaData[currentCategory][index];
 
-  document.getElementById("media-icon").textContent = item.icon;
+  const imgEl = document.getElementById("media-image");
+  const iconEl = document.getElementById("media-icon");
+
+  // Exibe ícone reserva por padrão até confirmar carregamento da imagem
+  setFallbackIcon(imgEl, iconEl, item.icon);
+
+  if (item.image) {
+    imgEl.alt = item.name;
+    imgEl.onload = () => {
+      iconEl.classList.add("hidden");
+      imgEl.classList.remove("hidden");
+    };
+    imgEl.onerror = () => {
+      setFallbackIcon(imgEl, iconEl, item.icon);
+    };
+    imgEl.src = item.image;
+  }
+
   document.getElementById("media-name").textContent = item.name;
   document.getElementById("media-type-badge").textContent = item.type;
   document.getElementById("media-speed").textContent = item.speedText;
