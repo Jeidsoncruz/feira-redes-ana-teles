@@ -1,5 +1,5 @@
 // COLE AQUI A URL DO SEU GOOGLE APPS SCRIPT (/exec)
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz_dtEWo16XicCwAnxiua4-cnC6uA_sgEPSITvjT5dVvv3zLkclWuTuFWZ4DyJMzBkY/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwZQxEHK3bCsHYjFX2oFbbquPbP4F_boufquTLc_gGKZbOKsIY3ESTfFy0dseI0Ffza/exec";
 
 // Estado do Jogo
 let player = { name: "", role: "" };
