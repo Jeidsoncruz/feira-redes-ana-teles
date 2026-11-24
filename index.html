@@ -8,12 +8,12 @@
 </head>
 <body>
   <div class="container">
-    <!-- TELA 1: LOGIN / IDENTIFICAÇÃO -->
+    <!-- TELA 1: LOGIN / IDENTIFICAÇÃO + RANKING AO VIVO -->
     <section id="screen-login" class="card active">
-      <div class="badge">Feira das Profissões • Informática</div>
+      <div class="badge">Feira das Profissões • Informática Subsequente</div>
       <h1>🌐 Missão Redes: O Caminho dos Dados</h1>
       <p>Descubra como a internet viaja pelos cabos e pelo ar antes de encarar o desafio final!</p>
-      
+
       <form id="form-login">
         <label for="player-name">Como devemos te chamar? (Nome ou Apelido)</label>
         <input type="text" id="player-name" placeholder="Ex: Alex, CyberNet..." required maxlength="30" />
@@ -28,23 +28,23 @@
 
         <button type="submit" class="btn-primary">Iniciar Missão 🚀</button>
       </form>
+
+      <!-- TOP 5 RANKING AO VIVO -->
+      <div class="ranking-box">
+        <div class="ranking-header">
+          <h3>🏆 Top 5 Ranking da Feira</h3>
+          <button type="button" class="btn-refresh" onclick="loadRanking()">Atualizar ↻</button>
+        </div>
+        <ol id="ranking-list" class="ranking-list">
+          <li class="ranking-empty">Carregando ranking...</li>
+        </ol>
+      </div>
     </section>
-    
-    <!-- RANKING AO VIVO (TOP 5) -->
-<div class="ranking-box">
-  <div class="ranking-header">
-    <h3>🏆 Top 5 Ranking da Feira</h3>
-    <button type="button" class="btn-refresh" onclick="loadRanking()">Atualizar ↻</button>
-  </div>
-  <ol id="ranking-list" class="ranking-list">
-    <li>Carregando ranking...</li>
-  </ol>
-</div>
 
     <!-- TELA 2: HUB PRINCIPAL -->
     <section id="screen-hub" class="card hidden">
       <div class="welcome-banner" id="welcome-message"></div>
-      
+
       <div class="intro-box">
         <h3>📡 Como os dados viajam?</h3>
         <p>Toda comunicação em rede precisa de um <strong>meio físico</strong> para transportar bits (0s e 1s). Eles se dividem em <strong>Meios Guiados</strong> (cabos físicos onde o sinal fica confinado) e <strong>Meios Não Guiados</strong> (ondas eletromagnéticas pelo ar/espaço). Explore os dois módulos abaixo para desbloquear o Quiz!</p>
@@ -55,14 +55,14 @@
           <span class="status-tag" id="tag-guiados">Pendente</span>
           <div class="icon">🔌</div>
           <h3>1. Meios Guiados</h3>
-          <p>Coaxial, Par Trançado (CAT4 ao CAT8) e Fibra Óptica.</p>
+          <p>Coaxial, Par Trançado (CAT4 ao CAT6a) e Fibra Óptica.</p>
         </button>
 
         <button id="btn-nao-guiados" class="hub-card" onclick="openModule('nao-guiados')">
           <span class="status-tag" id="tag-nao-guiados">Pendente</span>
           <div class="icon">📶</div>
           <h3>2. Meios Não Guiados</h3>
-          <p>Wi-Fi, Bluetooth, Rádio Enlace, Satélite e Infravermelho.</p>
+          <p>Infravermelho, Bluetooth, Wi-Fi, Rádio Enlace e Satélite.</p>
         </button>
 
         <button id="btn-quiz" class="hub-card locked" onclick="startQuiz()" disabled>
@@ -148,7 +148,7 @@
     <section id="screen-quiz" class="card hidden">
       <div class="top-bar">
         <span id="quiz-progress">Questão 1 de 12</span>
-        <span id="quiz-score-live">Pontos: 0</span>
+        <span id="quiz-score-live">Acertos: 0</span>
       </div>
       <h3 id="question-text"></h3>
       <div id="options-container" class="options-list"></div>
@@ -161,7 +161,7 @@
       <p id="result-summary"></p>
       <div id="prize-box" class="prize-banner"></div>
       <p id="sync-status" class="sync-text">⏳ Registrando sua participação na planilha da feira...</p>
-      <button class="btn-primary" onclick="location.reload()">Jogar Novamente 🔄</button>
+      <button class="btn-primary" onclick="resetGame()">Jogar Novamente 🔄</button>
     </section>
   </div>
 
