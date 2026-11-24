@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Missão Redes: Meios de Transmissão</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- TELA 1: LOGIN / IDENTIFICAÇÃO -->
+    <section id="screen-login" class="card active">
+      <div class="badge">Feira das Profissões • Informática</div>
+      <h1>🌐 Missão Redes: O Caminho dos Dados</h1>
+      <p>Descubra como a internet viaja pelos cabos e pelo ar antes de encarar o desafio final!</p>
+      
+      <form id="form-login">
+        <label for="player-name">Como devemos te chamar? (Nome ou Apelido)</label>
+        <input type="text" id="player-name" placeholder="Ex: Alex, CyberNet..." required maxlength="30" />
+
+        <label for="player-role">Selecione seu perfil:</label>
+        <select id="player-role" required>
+          <option value="" disabled selected>Escolha uma opção...</option>
+          <option value="Estudante Ana Teles">Estudante da Escola Ana Teles</option>
+          <option value="Visitante">Visitante</option>
+          <option value="Professor(a)">Professor(a)</option>
+        </select>
+
+        <button type="submit" class="btn-primary">Iniciar Missão 🚀</button>
+      </form>
+    </section>
+
+    <!-- TELA 2: HUB PRINCIPAL -->
+    <section id="screen-hub" class="card hidden">
+      <div class="welcome-banner" id="welcome-message"></div>
+      
+      <div class="intro-box">
+        <h3>📡 Como os dados viajam?</h3>
+        <p>Toda comunicação em rede precisa de um <strong>meio físico</strong> para transportar bits (0s e 1s). Eles se dividem em <strong>Meios Guiados</strong> (cabos físicos onde o sinal fica confinado) e <strong>Meios Não Guiados</strong> (ondas eletromagnéticas pelo ar/espaço). Explore os dois módulos abaixo para desbloquear o Quiz!</p>
+      </div>
+
+      <div class="hub-grid">
+        <button id="btn-guiados" class="hub-card" onclick="openModule('guiados')">
+          <span class="status-tag" id="tag-guiados">Pendente</span>
+          <div class="icon">🔌</div>
+          <h3>1. Meios Guiados</h3>
+          <p>Coaxial, Par Trançado (CAT4 ao CAT8) e Fibra Óptica.</p>
+        </button>
+
+        <button id="btn-nao-guiados" class="hub-card" onclick="openModule('nao-guiados')">
+          <span class="status-tag" id="tag-nao-guiados">Pendente</span>
+          <div class="icon">📶</div>
+          <h3>2. Meios Não Guiados</h3>
+          <p>Wi-Fi, Bluetooth, Rádio Enlace, Satélite e Infravermelho.</p>
+        </button>
+
+        <button id="btn-quiz" class="hub-card locked" onclick="startQuiz()" disabled>
+          <span class="status-tag" id="tag-quiz">🔒 Bloqueado</span>
+          <div class="icon">🏆</div>
+          <h3>3. Desafio Quiz (12 Questões)</h3>
+          <p>Explore os módulos 1 e 2 para liberar o desafio e concorrer a prêmios!</p>
+        </button>
+      </div>
+    </section>
+
+    <!-- TELA 3: SIMULADOR DE MEIOS (GUIADOS E NÃO GUIADOS) -->
+    <section id="screen-simulator" class="card hidden">
+      <div class="top-bar">
+        <button class="btn-back" onclick="backToHub()">⬅ Voltar ao Menu</button>
+        <h2 id="module-title">Meios Guiados</h2>
+      </div>
+
+      <!-- Seletor de Meios -->
+      <div id="media-selector" class="media-tabs"></div>
+
+      <!-- Painel de Detalhes + Animação -->
+      <div class="sim-display">
+        <div class="sim-header">
+          <span id="media-icon" class="big-icon"></span>
+          <div>
+            <h3 id="media-name"></h3>
+            <span id="media-type-badge" class="badge-small"></span>
+          </div>
+        </div>
+
+        <!-- Animação Visual do Sinal -->
+        <div class="signal-box">
+          <div class="endpoint">💻 Origem</div>
+          <div class="channel" id="signal-channel">
+            <div class="pulse" id="signal-pulse"></div>
+          </div>
+          <div class="endpoint">🖥️ Destino</div>
+        </div>
+        <p class="signal-caption" id="signal-description"></p>
+
+        <div class="specs-grid">
+          <div class="spec-item">
+            <strong>⚡ Velocidade Máxima:</strong>
+            <span id="media-speed"></span>
+          </div>
+          <div class="spec-item">
+            <strong>📏 Alcance / Frequência:</strong>
+            <span id="media-range"></span>
+          </div>
+          <div class="spec-item full">
+            <strong>🎯 Principal Uso:</strong>
+            <span id="media-use"></span>
+          </div>
+          <div class="spec-item full">
+            <strong>⚖️ Vantagens x Desvantagens:</strong>
+            <span id="media-comparison"></span>
+          </div>
+        </div>
+
+        <!-- Simulador de Transferência de Arquivo -->
+        <div class="transfer-simulator">
+          <h4>⏱️ Simulador de Transferência</h4>
+          <div class="sim-controls">
+            <label for="file-size">Tamanho do arquivo:</label>
+            <select id="file-size" onchange="runTransferSimulation()">
+              <option value="0.5">500 MB (Apresentação / Fotos)</option>
+              <option value="2" selected>2 GB (Filme HD / ISO Linux)</option>
+              <option value="10">10 GB (Backup de Projeto)</option>
+              <option value="50">50 GB (Jogo Moderno)</option>
+            </select>
+            <button class="btn-sim" onclick="runTransferSimulation()">Simular Envio ▶</button>
+          </div>
+          <div class="progress-wrapper">
+            <div class="progress-bar" id="sim-progress"></div>
+          </div>
+          <p id="sim-result" class="sim-result-text"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TELA 4: QUIZ -->
+    <section id="screen-quiz" class="card hidden">
+      <div class="top-bar">
+        <span id="quiz-progress">Questão 1 de 12</span>
+        <span id="quiz-score-live">Pontos: 0</span>
+      </div>
+      <h3 id="question-text"></h3>
+      <div id="options-container" class="options-list"></div>
+    </section>
+
+    <!-- TELA 5: RESULTADO FINAL -->
+    <section id="screen-result" class="card hidden">
+      <div id="trophy-icon" class="trophy">🏅</div>
+      <h2 id="result-title">Missão Concluída!</h2>
+      <p id="result-summary"></p>
+      <div id="prize-box" class="prize-banner"></div>
+      <p id="sync-status" class="sync-text">⏳ Registrando sua participação na planilha da feira...</p>
+      <button class="btn-primary" onclick="location.reload()">Jogar Novamente 🔄</button>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
