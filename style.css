@@ -234,3 +234,61 @@ input, select {
   font-size: 1.1rem;
 }
 .sync-text { font-size: 0.9rem; color: var(--muted); text-align: center; }
+
+.ranking-box {
+  margin-top: 24px;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.ranking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.ranking-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--warning);
+}
+
+.btn-refresh {
+  background: #1e293b;
+  color: var(--primary);
+  border: 1px solid #475569;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.btn-refresh:hover {
+  border-color: var(--primary);
+}
+
+.ranking-list {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ranking-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1e293b;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.92rem;
+}
+
+.ranking-score {
+  font-weight: 700;
+  color: var(--accent);
+}
